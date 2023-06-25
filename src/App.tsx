@@ -1,8 +1,7 @@
-import { TextField,Stack, Container, Typography} from '@mui/material';
-import { ThemeProvider} from '@mui/material/styles';
-import theme from './theme';
-import './App.css'
 import { useFormik } from "formik";
+import { ChakraProvider,  FormControl, FormLabel } from '@chakra-ui/react'
+import { Heading } from '@chakra-ui/react'
+import { Input,VStack } from '@chakra-ui/react'
 
 function App() {
   const formik = useFormik({
@@ -15,22 +14,19 @@ function App() {
   });
 
   return (
-    <form  onSubmit={formik.handleSubmit}>
-      <ThemeProvider theme={theme}>
-        <Container sx={{ bgcolor:theme.palette.primary.light, minHeight:'100vh',minWidth:'100vw',display:'flex',justifyContent:'center'}}>
-          <Stack spacing={2} mt={8}>
-          <Typography variant='h1' color={'white'}>Sign up now</Typography>
-          <TextField
-            id="email"
-            label="Email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            type='email'
-            />
-            </Stack>
-        </Container>
-      </ThemeProvider>
-    </form>
+    <ChakraProvider>
+        <form  onSubmit={formik.handleSubmit}>
+          <VStack bgColor={'blue.100'} minH={'100vh'}  pt={4}>
+              <VStack spacing={4} minWidth={'lg'}>
+                <Heading>Sign up now</Heading>
+                <FormControl isRequired>
+                  <FormLabel htmlFor="email">Email</FormLabel>
+                  <Input value={formik.values.email} onChange={formik.handleChange} id="email" variant='filled'  type="email"/>
+                </FormControl>
+              </VStack>
+          </VStack>
+        </form>
+    </ChakraProvider>
     )
 }
 

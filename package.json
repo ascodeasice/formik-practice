@@ -11,15 +11,16 @@
     "test": "jest",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "test --watch":"jest --watch"
+    "test --watch": "jest --watch"
   },
   "homepage": "http://ascodeasice.github.io/formik-practice",
   "dependencies": {
+    "@chakra-ui/react": "^2.7.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.3",
-    "@mui/material": "^5.13.6",
     "formik": "^2.4.2",
+    "framer-motion": "^10.12.17",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

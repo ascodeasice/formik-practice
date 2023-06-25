@@ -31,17 +31,13 @@ test('renders heading with text: Sign up now', () => {
   expect(headingElement).toBeInTheDocument();
 });
 
-test('typing into input with name "Email" updates its value', () => {
-  // Render the App component
-  const { getByLabelText } = render(<App />);
+test('typing into email input updates its value in App', () => {
+  const { getByRole } = render(<App />);
 
-  // Select the input element by its associated label text
-  const emailInput = getByLabelText('Email');
-
-  // Simulate typing into the input field
+  const emailInput = getByRole('textbox', { name: 'Email' });
   const typedText = 'test@example.com';
+
   fireEvent.change(emailInput, { target: { value: typedText } });
 
-  // Assert that the input value has been updated correctly
   expect(emailInput).toHaveValue(typedText);
 });
