@@ -9,7 +9,7 @@ test("測試 App.tsx 頁面是否正常運作", async () => {
   expect(true).toBeTruthy();
 });
 
-test('renders two input elements', () => {
+test('renders right amount of input elements', () => {
   // Render the App component
   render(<App />);
 
@@ -17,7 +17,7 @@ test('renders two input elements', () => {
   const inputElements = screen.getAllByRole('textbox');
 
   // Assert that there are two input elements
-  expect(inputElements.length).toBe(2);
+  expect(inputElements.length).toBe(3);
 });
 
 test('renders heading with text: Sign up now', () => {
@@ -39,6 +39,7 @@ test('typing in input elements changes their values', () => {
   const inputData = [
     { label: 'Email', value: 'test@example.com' },
     { label: 'Country', value: 'USA' },
+    { label:'Phone Number',value:'12345'}
     // Add more input data objects as needed
   ];
 
@@ -63,6 +64,7 @@ test('input elements have correct placeholders', () => {
   const inputData = [
     { label: 'Email', placeholder: 'Enter your email' },
     { label: 'Country', placeholder: 'Enter your country' },
+    { label: 'Phone Number', placeholder: 'Enter your phone number' },
     // Add more input data objects as needed
   ];
 
