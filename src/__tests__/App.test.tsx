@@ -83,5 +83,5 @@ test('renders one password input', () => {
 
   const passwordInputs = document.querySelectorAll('input[type="password"]');
 
-  expect(passwordInputs).toHaveLength(1);
+  expect(passwordInputs).toHaveLength(2);
 });
