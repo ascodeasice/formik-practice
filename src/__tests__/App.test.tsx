@@ -77,3 +77,11 @@ test('input elements have correct placeholders', () => {
     expect(inputElement).toHaveAttribute('placeholder', placeholder);
   });
 });
+
+test('renders one password input', () => {
+  render(<App />);
+
+  const passwordInputs = document.querySelectorAll('input[type="password"]');
+
+  expect(passwordInputs).toHaveLength(1);
+});

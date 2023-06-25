@@ -11,13 +11,19 @@ function App() {
     phoneNumber: Yup.string()
       .matches(/^\d+$/, 'Phone numbers must contain only numbers')
       .matches(/^[\d\s\-()]+$/, 'Phone numbers can only contain valid characters'),
+      password: Yup.string()
+      .min(8, 'Password must be at least 8 characters')
+      .matches(/[a-z]/, 'Password must contain lowercase letters')
+      .matches(/[A-Z]/, 'Password must contain uppercase letters')
+      .matches(/\d/, 'Password must contain numbers'),
   });
 
   const formik = useFormik({
     initialValues: {
       email: "",
       country:"",
-      phoneNumber:""
+      phoneNumber:"",
+      password:''
     },
     validationSchema,
     onSubmit: (values) => {
@@ -54,9 +60,26 @@ function App() {
                     onBlur={formik.handleBlur}
                   />
               </FormControl>
+              <FormControl isRequired>
+                  <FormLabel htmlFor="password">Password</FormLabel>
+                  <Input
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    id="password"
+                    variant="filled"
+                    placeholder="Enter your password"
+                    onBlur={formik.handleBlur}
+                    type="password"
+                  />
+              </FormControl>
+              <Text whiteSpace={'pre'} color={'red.500'}>
                 {formik.touched.phoneNumber && formik.errors.phoneNumber && (
                   <div>{formik.errors.phoneNumber}</div>
-                )}
+                  )}
+                {formik.touched.password && formik.errors.password && (
+                  <div>{formik.errors.password}</div>
+                  )}
+                  </Text>
               </VStack>
               <Button colorScheme="teal" type="submit" isLoading={isSubmitting}>Submit</Button>
               <Text>
