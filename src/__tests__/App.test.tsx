@@ -1,4 +1,4 @@
-import { render,fireEvent } from "@testing-library/react";
+import { render,fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import App from "../App";
 
@@ -9,15 +9,15 @@ test("測試 App.tsx 頁面是否正常運作", async () => {
   expect(true).toBeTruthy();
 });
 
-test('renders TextField component', () => {
-  // Render the TextField component
-  const { getByRole } = render(<App />);
+test('renders two input elements', () => {
+  // Render the App component
+  render(<App />);
 
-  // Use the getByRole method to select the TextField component
-  const textFieldElement = getByRole('textbox');
+  // Find the input elements on the screen
+  const inputElements = screen.getAllByRole('textbox');
 
-  // Assert that the TextField component is present
-  expect(textFieldElement).toBeInTheDocument();
+  // Assert that there are two input elements
+  expect(inputElements.length).toBe(2);
 });
 
 test('renders heading with text: Sign up now', () => {
@@ -31,13 +31,47 @@ test('renders heading with text: Sign up now', () => {
   expect(headingElement).toBeInTheDocument();
 });
 
-test('typing into email input updates its value in App', () => {
-  const { getByRole } = render(<App />);
+test('typing in input elements changes their values', () => {
+  // Render the App component
+  render(<App />);
 
-  const emailInput = getByRole('textbox', { name: 'Email' });
-  const typedText = 'test@example.com';
+  // Define an array of input data with label and value
+  const inputData = [
+    { label: 'Email', value: 'test@example.com' },
+    { label: 'Country', value: 'USA' },
+    // Add more input data objects as needed
+  ];
 
-  fireEvent.change(emailInput, { target: { value: typedText } });
+  // Iterate through the input data array
+  inputData.forEach(({ label, value }) => {
+    // Find the input element by its label
+    const inputElement = screen.getByRole('textbox',{name:label});
 
-  expect(emailInput).toHaveValue(typedText);
+    // Simulate typing a new value in the input element
+    fireEvent.change(inputElement, { target: { value } });
+
+    // Assert that the input element's value has changed
+    expect(inputElement).toHaveValue(value);
+  });
+});
+
+test('input elements have correct placeholders', () => {
+  // Render the App component
+  render(<App />);
+
+  // Define an array of input data with label and placeholder
+  const inputData = [
+    { label: 'Email', placeholder: 'Enter your email' },
+    { label: 'Country', placeholder: 'Enter your country' },
+    // Add more input data objects as needed
+  ];
+
+  // Iterate through the input data array
+  inputData.forEach(({ label, placeholder }) => {
+    // Find the input element by its role and name attribute
+    const inputElement = screen.getByRole('textbox', { name: label });
+
+    // Assert that the input element has the correct placeholder
+    expect(inputElement).toHaveAttribute('placeholder', placeholder);
+  });
 });
