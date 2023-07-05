@@ -12,7 +12,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "test --watch": "jest --watch",
-    "cypress:open": "cypress open",
+    "cy-open": "cypress open",
     "cypress:run": "cypress run",
     "start": "my-server -p 3030",
     "cy-test": "start-server-and-test dev http://localhost:5173 cypress:run"
