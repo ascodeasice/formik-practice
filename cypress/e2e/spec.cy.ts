@@ -43,6 +43,13 @@ describe('Sign up page function', () => {
     cy.contains('Phone numbers must contain only numbers')
   })
 
+})
+
+describe('password fields', () => {
+  beforeEach(() => {
+    cy.visit('/')
+  })
+
   it("password validate length", () => {
 
     for (let i = 1; i <= 7; i++) {
@@ -70,5 +77,30 @@ describe('Sign up page function', () => {
 
     cy.contains('Submit').click()
     cy.contains('Password must contain numbers')
+  })
+
+  it("confirm password is required", () => {
+    cy.get('input#confirmPassword').type('a{backspace}') // no text but touched
+    cy.contains('Submit').click()
+    cy.contains('Confirm Password is required')
+  })
+
+  it("confirm password must match password", () => {
+    const str = 'Aa111111'
+    cy.get('input#password').type(str);
+
+    for (let i = 0; i < str.length - 1; i++) {
+      cy.get('input#confirmPassword').type(str[i])
+      cy.contains('Submit').click();
+      cy.contains('Passwords must match')
+    }
+
+    cy.get('input#confirmPassword').type(str.slice(-1)) // last character
+    cy.contains('Confirm password must match').should('not.exist')
+
+    cy.get('input#confirmPassword').type('anything') // last character
+    cy.contains('Submit').click();
+    cy.contains('Confirm password must match').should('not.exist')
+
   })
 })
