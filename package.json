@@ -11,7 +11,8 @@
     "test": "jest",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "test --watch": "jest --watch"
+    "test --watch": "jest --watch",
+    "cypress:open": "cypress open"
   },
   "homepage": "http://ascodeasice.github.io/formik-practice",
   "dependencies": {
@@ -36,8 +37,10 @@
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
     "@vitejs/plugin-react-swc": "^3.0.0",
+    "cypress": "^12.16.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.38.0",
+    "eslint-plugin-cypress": "^2.13.3",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
     "gh-pages": "^5.0.0",
@@ -54,5 +57,10 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:cypress/recommended"
+    ]
   }
 }
